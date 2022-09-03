@@ -29,19 +29,19 @@ db.connect((err) => {
 		});
 	});
 
-	app.post("/login", (req, res) => {
+	app.post("/login", (req, response) => {
 		const email = req.body.email;
 		const password = req.body.password;
 		const query = `SELECT * FROM users WHERE email = '${email}' AND password= '${md5(
 			password
 		)}'`;
-		db.query(query, (err, res) => {
+		db.query(query, (err, result) => {
 			if (err) throw err;
-			console.log("data same");
+			console.log(response.status(200).send({ message: "success" }));
 		});
 		console.log(email);
 		console.log(password);
-		res.redirect("/");
+		response.redirect("/");
 	});
 });
 
